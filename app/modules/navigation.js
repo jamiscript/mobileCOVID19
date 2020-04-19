@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-const navigation = function AppContainer() {
+export default function() {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="">
@@ -13,5 +13,3 @@ const navigation = function AppContainer() {
       </NavigationContainer>
     );
 }
-
-export default navigation;
