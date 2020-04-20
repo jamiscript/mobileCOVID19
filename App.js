@@ -1,20 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Quiz from './screens/Quiz'
+import { View } from 'react-native';
+
+import ScreenRamking from './screens/ScreenRanking.js';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Quiz></Quiz>
-    </View>
+      <ScreenRamking />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
