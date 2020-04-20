@@ -23,36 +23,43 @@ const Collocation = props => {
 export default function Ranking() {
   const ranking = [
     {
+      id: '01',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '02',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '03',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '04',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '05',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '06',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
     },
     {
+      id: '07',
       name: 'Hugo',
       img: 'https://vectorified.com/images/avatar-icon-png-9.jpg',
       points: '4000',
@@ -62,7 +69,7 @@ export default function Ranking() {
     <View style={styles.ranking}>
       <FlatList
         data={ranking}
-        keyExtractor={rank => rank.name}
+        keyExtractor={rank => rank.id}
         renderItem={({ item }) => {
           return (
             <Collocation
