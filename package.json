@@ -8,10 +8,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^37.0.7",
+    "expo": "~37.0.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "@react-navigation/native": "^5.1.6",
+    "@react-navigation/stack": "^5.2.11",
+    "react-native-elements": "^1.2.7",
     "react-native-paper": "^3.8.0",
     "react-native-web": "~0.11.7"
   },
