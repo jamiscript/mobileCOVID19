@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Card, Avatar, Appbar, Button } from 'react-native-paper';
 
@@ -23,7 +23,7 @@ export default function NavigationBar() {
   );
 }
 const styles = StyleSheet.create({
-   footer: {
+  footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
