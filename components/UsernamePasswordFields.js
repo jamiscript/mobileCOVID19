@@ -43,7 +43,7 @@ const UsernamePasswordFields = () => {
                 secureTextEntry={true}
                 onChangeText={(text) => setPassword(text)}
                 onChange={() => setError('')}
-                ref={(input) => {setPassword(input)}}
+                
             />
             <CustomButton btnName="Login" action={handleClick} />
         </View>
