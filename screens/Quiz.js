@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   popupText:{
     color : "white",
-    fontSize: "18px",
+    fontSize: 18,
     fontWeight: "bold"
   },
   popupButtonBox:{
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: "center",
     backgroundColor: '#ecf0f1',
-    paddingTop: '10px',
+    paddingTop: 10,
   },
   header: {
     flex: 4,
@@ -147,19 +147,19 @@ const styles = StyleSheet.create({
     color: 'whitesmoke',
   },
   quizText: {
-    padding: '10px',
+    padding: 10,
     color: 'white',
-    fontSize: '15px',
+    fontSize: 15,
     fontWeight: 'bold',
   },
   card: {
     backgroundColor: "darkgrey",
     width: '90%',
-    padding: '5px',
-    borderRadius: "15px"
+    padding: 5,
+    borderRadius: 15
   },
   titleBox: {
-    paddingLeft: "5px",
+    paddingLeft: 5,
   },
   title: {
     color: 'grey',
@@ -167,11 +167,11 @@ const styles = StyleSheet.create({
   },
   textBox: {
     flex: 1,
-    padding: "5px",
+    padding: 5,
     justifyContent: 'center',
   },
   text: {
-    fontSize: '14px',
+    fontSize: 14,
     color: "white",
     textAlign: "center"
   },
