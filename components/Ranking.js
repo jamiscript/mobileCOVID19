@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Text, View, StyleSheet, FlatList, AsyncStorage } from 'react-native';
 import Constants from 'expo-constants';
 import { Card, Avatar } from 'react-native-paper';
@@ -100,15 +100,15 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   points: {
-    marginLeft: '80px',
+    left: 150,
     color: 'white',
   },
   name: {
+    left:10,
     color: 'white',
   },
   avatar: {
-    marginRight: 5,
-    marginLeft: 10,
+    left:5,
     backgroundColor: '#D2CCCB',
   },
 });

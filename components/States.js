@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'white',
-    marginLeft:5
+    left:5
   },
   avatar: {
     backgroundColor: '#D2CCCB',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     flexDirection: 'column',
-    marginLeft: 10,
+    left: 10,
     flex: 3,
   },
   placedContainer: {
