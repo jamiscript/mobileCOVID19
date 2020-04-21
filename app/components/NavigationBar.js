@@ -1,22 +1,25 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Card, Avatar, Appbar, Button } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { Appbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function NavigationBar() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.footer}>
       <Appbar style={styles.bottom}>
         <Appbar.Action
-          icon={require('../assets/iconRanking.png')}
-          onPress={() => console.log('Pressed Ranking')}
+          icon={require('../assets/images/iconRanking.png')}
+          onPress={() => navigation.navigate("Rank")}
         />
         <Appbar.Action
-          icon={require('../assets/iconHome.png')}
-          onPress={() => console.log('Pressed Home')}
+          icon={require('../assets/images/iconHome.png')}
+          onPress={() => navigation.navigate("Missions")}
         />
         <Appbar.Action
-          icon={require('../assets/iconQuiz.png')}
-          onPress={() => console.log('Pressed Quiz')}
+          icon={require('../assets/images/iconQuiz.png')}
+          onPress={() => navigation.navigate("Quiz")}
         />
       </Appbar>
     </View>
