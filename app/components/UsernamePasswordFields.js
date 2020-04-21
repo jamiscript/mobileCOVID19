@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Alert, AsyncStorage, Text, Dimensions } from 'react-native';
 import CustomButton from './CustomButton';
+import navigation from '../modules/navigation';
 
 const UsernamePasswordFields = () => {
 
@@ -27,27 +28,6 @@ const UsernamePasswordFields = () => {
             }
         }
     }
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.error}>{error}</Text>
-            <TextInput style={styles.input}
-                placeholder="Username"
-                onSubmitEditing={() => { this.passwordInput.focus(); }}
-                onChangeText={(text) => setUsername(text)}
-                onChange={() => setError('')}
-                blurOnSubmit={false}
-            />
-            <TextInput style={styles.input}
-                placeholder="Password"
-                secureTextEntry={true}
-                onChangeText={(text) => setPassword(text)}
-                onChange={() => setError('')}
-                
-            />
-            <CustomButton btnName="Login" action={handleClick} />
-        </View>
-    );
 };
 
 const styles = StyleSheet.create({
