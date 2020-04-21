@@ -59,4 +59,13 @@ const styles = StyleSheet.create({
     height: 128,
     width: 128,
   },
+  input: {
+    height: 40,
+    width: 300,
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 15
+},
 });
