@@ -3,8 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './app/screens/Login';
-import Missions from './app/screens/MissionsView';
+import Login from './app/screens/LoginScreen';
+import Missions from './app/screens/MissionsScreen';
 import Quiz from './app/screens/Quiz';
 import Rank from './app/screens/ScreenRanking';
 
