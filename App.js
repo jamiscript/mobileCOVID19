@@ -5,8 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './app/screens/LoginScreen';
 import Missions from './app/screens/MissionsScreen';
-import Quiz from './app/screens/Quiz';
-import Rank from './app/screens/ScreenRanking';
+import Quiz from './app/screens/QuizScreen';
+import Rank from './app/screens/RankScreen';
 
 const Stack = createStackNavigator();
 
