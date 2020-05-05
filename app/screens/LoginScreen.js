@@ -1,11 +1,39 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import CustomButtom from '../components/CustomButton';
+import { useAuth } from '../providers/auth';
+import * as api from '../services/api';
+import { apisAreAvailable } from 'expo';
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { handleLogin } = useAuth();
+
+  const fields = [
+    {username: 'username', label: 'Username', required: true},
+    {username: 'password', label: 'Password', required: true, secure: true}
+  ];
+
+  async function onSubmit(state) {
+    setLoading(true);
+
+    try {
+      let response = await api.login(state);
+      await handleLogin(response);
+
+      setLoading(false);
+
+      let username = (response.user.username !== null);
+      if(username) navigate('App');
+      else navigation.replace('Username');
+    } catch(error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
