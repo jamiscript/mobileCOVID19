@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image, TouchableHighlight } from 'react-native';
-import { Card } from 'react-native-paper';
-import Constants from 'expo-constants';
+import NavigationBar from '../components/NavigationBar.js';
 
-export default Quiz = (props) => {
+export default function Quiz (props) {
 
   function PopUp (props) {
     return(
@@ -107,7 +106,7 @@ export default Quiz = (props) => {
           value={false}
         />
       </View>
-      <Footer />
+      <NavigationBar />
     </>
   );
 }
