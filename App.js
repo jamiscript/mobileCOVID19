@@ -10,7 +10,7 @@ import Rank from './app/screens/RankScreen';
 
 const Stack = createStackNavigator();
 
-export default function () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
