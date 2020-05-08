@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#474646',
-    flex: 0.5,
+    flex: 0.1,
   },
   bottom: {
     position: 'absolute',
