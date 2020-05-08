@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
-import NavigationBar from '../components/NavigationBar'
 
 //mock data 
 const user = {
@@ -67,7 +66,7 @@ export default function MissionsScreen() {
         <HeaderProfile />
         <MissionList />
       </View>
-      <NavigationBar />
+      
     </>
   );
 }
