@@ -6,11 +6,12 @@ const customTextInput = (prop) => {
     return (
         <View>
             <Text style={styles.error}>{error}</Text>
-            <TextInput style={styles.input}
+            <TextInput style={prop.style}
                 placeholder={prop.placeholder}
                 onChangeText={prop.action}
                 onChange={() => setError('')}
                 blurOnSubmit={false}
+                secureTextEntry={prop.isSensitive}
             />
         </View>
     );
@@ -22,14 +23,6 @@ const styles = StyleSheet.create({
     error: {
         color: 'red',
         marginBottom: 4,
-        fontWeight: 'bold',
-    },
-    input: {
-        height: 40,
-        width: 300,
-        borderColor: 'gray',
-        borderWidth: 1,
-        padding: 10,
-        marginBottom: 10,
+        fontWeight: 'bold'
     }
-}); 
+});
