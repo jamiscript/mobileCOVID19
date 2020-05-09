@@ -1,14 +1,19 @@
 import React from 'react';
 import {
-  Button,
   FlatList,
   Image,
-  Text,
-  TextInput,
-  View,
   StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import { YellowBox } from 'react-native';
+import CustomTextInput from '../components/CustomTextInput';
+import { cos } from 'react-native-reanimated';
+
+YellowBox.ignoreWarnings([
+  'VirtualizedLists should never be nested'
+]);
 
 const step1 = [
   { value: 'username', label: 'Usuário', security: false },
@@ -17,7 +22,9 @@ const step1 = [
   { value: 'verifyPassword', label: 'Confirmar Senha', security: true },
 ];
 
-const header1 = <Button title="Cadastrar com o Facebook" />;
+const header1 = (
+  <Text style={{ marginBottom: 5 }} />
+);
 
 const step2 = [
   { value: 'endereco', label: 'Endereço', security: false },
@@ -30,29 +37,36 @@ const step2 = [
 ];
 
 const header2 = (
-  <View style={{ flex: 1, alignItems: 'center' }}>
-    <Text>Está em casa? Conecte-se usando sua localização!</Text>
-    <Image
-      style={{ width: 50, height: 50 }}
-      source={require('../assets/images/iconLocation.png')}
-    />
-    <Text>Ou preencha com seu endereço: </Text>
-  </View>
+  <Text style={{ marginBottom: 5 }}>Está em casa?
+    <Text
+      onPress={() => handleOnPress()}
+      style={{ color: 'red' }}
+    > Conecte-se usando sua localização!</Text>
+  </Text>
 );
 
-const StepBody = props => {
+const handleOnPress = () => {
+  console.log("Opção pegar localização clicada.");
+}
+
+const handleOnSubmit = () => {
+  console.log("Submissão do cadastro.");
+}
+
+const handleTextChange = newValue => {
+  console.log("Text change:");
+  console.log(newValue);
+}
+
+const Content = props => {
   return (
-    <ProgressStep label="Localização">
-      <View style={{ alignItems: 'center' }}>
-        <StepInfo
-          data={props.data}
-          columns={props.columns}
-          header={props.header}
-        />
-      </View>
-    </ProgressStep>
+    <View style={styles.container}>
+      {props.header}
+      {/*<View style={styles.hairline} />*/}
+      <StepInfo data={props.data} columns={props.columns} style={props.style} />
+    </View>
   );
-};
+}
 
 const StepInfo = props => {
   return (
@@ -60,14 +74,17 @@ const StepInfo = props => {
       ListHeaderComponent={props.header}
       numColumns={props.columns}
       data={props.data}
+      key={props.columns}
       keyExtractor={item => item.value}
       renderItem={({ item }) => {
         return (
           <View>
-            <Text>{item.label}:</Text>
-            <TextInput
-              style={styles.textInputStyle}
-              secureTextEntry={item.security}
+            <Text style={{ marginBottom: -5 }}>{item.label}:</Text>
+            <CustomTextInput
+              placeholder=''
+              action={handleTextChange}
+              isSensitive={item.security}
+              style={props.style}
             />
           </View>
         );
@@ -78,36 +95,48 @@ const StepInfo = props => {
 
 export default function Stepper() {
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={styles.container}>
       <Image
-        style={{ width: 80, height: 80 }}
+        style={{ top: 10, width: 70, height: 70 }}
         source={require('../assets/images/snack-icon.png')}
       />
       <ProgressSteps
+        // Barra
+        progressBarColor="transparent"
+        completedProgressBarColor="transparent"
+
+        // Stepper ativo
+        activeLabelColor="darkgray"
         activeStepIconColor="gray"
-        completedStepIconColor="white"
-        activeStepIconBorderColor="transparent"
-        progressBarColor="gray"
         activeStepNumColor="gray"
-        completedProgressBarColor="gray"
-        disabledStepNumColor="#ebebe4">
-        {/*
-          <StepBody label="Dados básicos" data={step1} columns="2" header={header1} />
-        */}
-        <ProgressStep label="Dados básicos">
-          <View style={{ alignItems: 'center' }}>
-            {header1}
-            <StepInfo data={step1} columns="2" />
-          </View>
+        activeStepIconBorderColor="red"
+
+        // Stepper desabilitado (incompleto)
+        disabledStepIconColor="purple"
+        disabledStepNumColor="orange"
+
+        // Stepper completo
+        completedLabelColor="blue"
+        completedStepIconColor="black"
+        completedStepNumColor="white"
+      >
+        <ProgressStep
+          label="Dados básicos"
+          nextBtnText="Próximo"
+          nextBtnStyle={styles.stepBtn}
+        >
+          <Content data={step1} columns="1" header={header1} style={styles.input} />
         </ProgressStep>
-        {/*
-          <StepBody label="Localização" data={step2} columns="2" header={header2} />
-        */}
-        <ProgressStep label="Localização">
-          <View style={{ alignItems: 'center' }}>
-            {header2}
-            <StepInfo data={step1} columns="2" />
-          </View>
+
+        <ProgressStep
+          label="Localização"
+          previousBtnText="Voltar"
+          previousBtnStyle={styles.stepBtn}
+          nextBtnStyle={styles.stepBtn}
+          finishBtnText="Criar conta"
+          onSubmit={handleOnSubmit}
+        >
+          <Content data={step2} columns="2" header={header2} style={styles.input2} />
         </ProgressStep>
       </ProgressSteps>
     </View>
@@ -115,19 +144,38 @@ export default function Stepper() {
 }
 
 const styles = StyleSheet.create({
-  /*
-  buttonTextStyle: {
-    color: '#393939',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  */
-  textInputStyle: {
-    height: 20,
-    width: 100,
-    alignItems: 'stretch',
+  stepBtn: {
+    textAlign: 'center',
+    padding: 0,
+    margin: 0,
+    color: 'pink',
+  },
+  input: {
+    height: 40,
+    width: 300,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 20,
     marginBottom: 10,
-    marginLeft: 5,
+    borderRadius: 15,
+  },
+  input2: {
+    height: 40,
+    width: 150,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    borderRadius: 15,
+  },
+  hairline: {
+    marginTop: 20,
+    backgroundColor: '#A2A2A2',
+    height: 2,
+    width: 300,
+    marginBottom: 10,
   },
 });
