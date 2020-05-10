@@ -8,7 +8,7 @@ const customTextInput = (prop) => {
             <Text style={styles.error}>{error}</Text>
             <TextInput style={prop.style}
                 placeholder={prop.placeholder}
-                onChangeText={prop.action}
+                onChangeText={value => prop.action(value,prop.option)}
                 onChange={() => setError('')}
                 blurOnSubmit={false}
                 secureTextEntry={prop.isSensitive}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   Image,
@@ -9,13 +9,89 @@ import {
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { YellowBox } from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
-import { cos } from 'react-native-reanimated';
+import axios from 'axios'
+
+class StateForm extends React.Component {
+  data = {
+    userInfo: {
+      first_name: '',
+      last_name: '',
+      username: '',
+      email: '',
+      password: '',
+      verifyPassword: '',
+    },
+    userLocation: {
+      city: '',
+      number: '',
+      complement: '',
+      borough: '',
+      street: '',
+      state: '',
+      country: ''
+    },
+  }
+
+  setFirstName(value) {
+    this.data.userInfo.first_name = value
+  }
+  setLastName(value) {
+    this.data.userInfo.last_name = value
+  }
+  setUsername(value) {
+    this.data.userInfo.username = value
+  }
+  setEmail(value) {
+    this.data.userInfo.email = value
+  }
+  setPassword(value) {
+    this.data.userInfo.password = value
+  }
+  setVerifyPassword(value) {
+    this.data.userInfo.verifyPassword = value
+  }
+  setCity(value) {
+    this.data.userLocation.city = value
+  }
+  setNumber(value) {
+    this.data.userLocation.number = value
+  }
+  setComplement(value) {
+    this.data.userLocation.complement = value
+  }
+  setBorough(value) {
+    this.data.userLocation.borough = value
+  }
+  setStreet(value) {
+    this.data.userLocation.street = value
+  }
+  setState(value) {
+    this.data.userLocation.state = value
+  }
+  setCountry(value) {
+    this.data.userLocation.country = value
+  }
+}
+
+var forminfo = new StateForm()
+
+
+async function register(data) {
+  console.log('data',data)
+  /*await axios.post('https://coronasavior.herokuapp.com/users', data.userInfo)
+    .then((response) => console.log('response', response))*/
+    
+    /*await axios.post('https://coronasavior.herokuapp.com/profiles',data.userLocation)
+    .then((response) => console.log('response',response)) */
+}
 
 YellowBox.ignoreWarnings([
   'VirtualizedLists should never be nested'
 ]);
 
 const step1 = [
+  { value: 'first_name', label: 'Nome', security: false },
+  { value: 'last_name', label: 'Sobrenome', security: false },
   { value: 'username', label: 'Usuário', security: false },
   { value: 'email', label: 'E-mail', security: false },
   { value: 'password', label: 'Senha', security: true },
@@ -45,18 +121,37 @@ const header2 = (
   </Text>
 );
 
+
 const handleOnPress = () => {
   console.log("Opção pegar localização clicada.");
 }
 
 const handleOnSubmit = () => {
-  console.log("Submissão do cadastro.");
+  if (forminfo.data.password == forminfo.data.verifyPassword) {
+    console.log("Submissão do cadastro.", forminfo.data);
+    register(forminfo.data)
+  }
+  else {
+    console.log('Passwords are different!')
+  }
+
+}
+const handleTextChange = (newValue, option) => {
+  if (option == 'first_name') forminfo.setFirstName(newValue)
+  else if (option == 'last_name') forminfo.setLastName(newValue)
+  else if (option == 'username') forminfo.setUsername(newValue)
+  else if (option == 'email') forminfo.setEmail(newValue)
+  else if (option == 'password') forminfo.setPassword(newValue)
+  else if (option == 'verifyPassword') forminfo.setVerifyPassword(newValue)
+  else if (option == 'endereco') forminfo.setStreet(newValue)
+  else if (option == 'numero') forminfo.setNumber(newValue)
+  else if (option == 'complemento') forminfo.setComplement(newValue)
+  else if (option == 'bairro') forminfo.setBorough(newValue)
+  else if (option == 'cidade') forminfo.setCity(newValue)
+  else if (option == 'estado') forminfo.setState(newValue)
+  else if (option == 'pais') forminfo.setCountry(newValue)
 }
 
-const handleTextChange = newValue => {
-  console.log("Text change:");
-  console.log(newValue);
-}
 
 const Content = props => {
   return (
@@ -82,6 +177,7 @@ const StepInfo = props => {
             <Text style={{ marginBottom: -5 }}>{item.label}:</Text>
             <CustomTextInput
               placeholder=''
+              option={item.value}
               action={handleTextChange}
               isSensitive={item.security}
               style={props.style}
