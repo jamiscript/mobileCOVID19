@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList} from 'react-native';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
-//import NavigationBar from '../components/NavigationBar'
 
 //mock data 
 const user = {
@@ -62,17 +61,19 @@ const missions = [
 
 export default function MissionsScreen() {
   return (
-    <View style={styles.container}>
-      <HeaderProfile />
-      <MissionList/>
-      {/*<NavigationBar/>*/}
-    </View>
+    <>
+      <View style={styles.container}>
+        <HeaderProfile />
+        <MissionList />
+      </View>
+      
+    </>
   );
 }
 
 function HeaderProfile() {
   return (
-    <View style={styles.header}>      
+    <View style={styles.header}>
       <Avatar
         size="large"
         rounded
@@ -80,12 +81,12 @@ function HeaderProfile() {
       />
       <View style={{ flexDirection: 'column' }}>
         <Text style={styles.heading}>{user.username}</Text>
-        <View style={{ flexDirection: 'row' , justifyContent:"center", marginVertical:10}}>
+        <View style={{ flexDirection: 'row', justifyContent: "center", marginVertical: 10 }}>
           <Text style={styles.subHeading}>{user.points} pts</Text>
         </View>
       </View>
-      <View style={{justifyContent:"center"}}>
-        <Icon name='settings' color="gray" reverse onPress={()=> console.log('go to edit profile')}></Icon>
+      <View style={{ justifyContent: "center" }}>
+        <Icon name='settings' color="gray" reverse onPress={() => console.log('go to edit profile')}></Icon>
       </View>
     </View>
   );
@@ -95,28 +96,28 @@ function Mission({ mission }) {
   return (
     <View style={styles.missionCard}>
       <Icon name={mission.type} color="white"></Icon>
-        <Text style={styles.heading}>
-          {mission.title}
-        </Text>
-        <Text style={styles.subHeading}>{mission.points} pts</Text>
+      <Text style={styles.heading}>
+        {mission.title}
+      </Text>
+      <Text style={styles.subHeading}>{mission.points} pts</Text>
     </View>
   );
 }
 
 function MissionList() {
   return (
-      <FlatList
+    <FlatList
       data={missions}
       renderItem={({ item }) => <Mission mission={item} />}
       keyExtractor={item => item.id}
-    />    
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     //this should change when we have a safearea policy
-    paddingBottom: 40
+    flex: 9
   },
   header: {
     backgroundColor: 'dimgray',
@@ -131,12 +132,12 @@ const styles = StyleSheet.create({
   subHeading: {
     fontSize: 20,
   },
-  missionCard:{
+  missionCard: {
     flexDirection: 'row',
-    justifyContent:'space-between',
-    backgroundColor:'gray',
-    margin:10,
-    padding:20,
+    justifyContent: 'space-between',
+    backgroundColor: 'gray',
+    margin: 10,
+    padding: 20,
     borderRadius: 10
   }
 });

@@ -1,25 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import CustomButtom from '../components/CustomButton';
-import { getToken } from '../providers/auth';
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-
-  async function onSubmit() {
-    try{
-      await getToken({
-        "username": username,
-        "password": password
-      });
-      console.info("Usuário logado com sucesso!");
-    }catch(error){
-      Alert.alert("Usuário ou senha incorretos!");
-      console.error("erro: ", error);
-    }
-  }
+  const [error, setError] = useState('');
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -43,7 +29,7 @@ export default function Login({ navigation }) {
               onChange={() => setError('')}
 
             />
-            <CustomButtom btnName="Login" action={() => onSubmit()} />
+            <CustomButtom btnName="Login" action={() => { navigation.navigate("Rank") }} />
           </View>
 
           <View style={styles.hairline} />

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image, TouchableHighlight } from 'react-native';
-import { Card } from 'react-native-paper';
-import Constants from 'expo-constants';
 
-export default Quiz = (props) => {
+export default function Quiz (props) {
 
   function PopUp (props) {
     return(
@@ -51,22 +49,6 @@ export default Quiz = (props) => {
     );
   }
 
-  function Footer(props) {
-    return (
-      <View style={styles.footerBar}>
-        <View style={styles.buttonBox}>
-          <Button color="#555555" title="Ranking" />
-        </View>
-        <View style={styles.buttonBox}>
-          <Button color="#555555" title="HOME" />
-        </View>
-        <View style={styles.buttonBox}>
-          <Button color="#555555" title="Quiz" />
-        </View>
-      </View>
-    );
-  }
-
   const [popUp, setPopUp] = useState(false); 
   const [resposta, setResposta] = useState(false); 
 
@@ -107,7 +89,7 @@ export default Quiz = (props) => {
           value={false}
         />
       </View>
-      <Footer />
+      
     </>
   );
 }
