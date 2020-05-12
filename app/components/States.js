@@ -10,7 +10,7 @@ const State = props => {
           style={styles.avatar}
           size={70}
           source={{
-            uri:props.img,
+            uri: props.img,
           }}
         />
       </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'white',
-    left:5
+    left: 5
   },
   avatar: {
     backgroundColor: '#D2CCCB',

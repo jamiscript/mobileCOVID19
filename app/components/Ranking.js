@@ -111,11 +111,11 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   name: {
-    left:10,
+    left: 10,
     color: 'white',
   },
   avatar: {
-    left:5,
+    left: 5,
     backgroundColor: '#D2CCCB',
   },
 });

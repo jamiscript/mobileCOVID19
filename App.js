@@ -3,14 +3,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './app/screens/Login';
-import Missions from './app/screens/MissionsView';
-import Quiz from './app/screens/Quiz';
-import Rank from './app/screens/ScreenRanking';
+import Login from './app/screens/LoginScreen';
+import Missions from './app/screens/MissionsScreen';
+import Quiz from './app/screens/QuizScreen';
+import Rank from './app/screens/RankScreen';
 
 const Stack = createStackNavigator();
 
-export default function () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
