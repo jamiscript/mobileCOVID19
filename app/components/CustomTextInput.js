@@ -23,6 +23,14 @@ const styles = StyleSheet.create({
     error: {
         color: 'red',
         marginBottom: 4,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+    },
+    input: {
+        height: 40,
+        width: 300,
+        borderColor: 'gray',
+        borderWidth: 1,
+        padding: 10,
+        marginBottom: 10,
     }
-});
+}); 
