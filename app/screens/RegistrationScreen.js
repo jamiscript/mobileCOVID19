@@ -5,11 +5,12 @@ import {
   StyleSheet,
   Text,
   View,
+  Alert,
 } from 'react-native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { YellowBox } from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
-import axios from 'axios'
+import { registerUser } from '../providers/auth';
 
 class StateForm extends React.Component {
   data = {
@@ -78,6 +79,20 @@ var forminfo = new StateForm()
 
 async function register(data) {
   console.log('data',data)
+
+  try {
+    await registerUser({
+      "first_name": data.userInfo.first_name,
+      "last_name": data.userInfo.last_name,
+      "username": data.userInfo.username,
+      "email": `${data.userInfo.username}@coronasavior.com`,//data.userInfo.email,
+      "password": data.userInfo.password
+    })
+    console.info("Usuário registrado com sucesso!");
+  } catch(error) {
+    Alert.alert("Erro ao cadastrar usuário!");
+    console.error("erro: ", error);
+  }
   /*await axios.post('https://coronasavior.herokuapp.com/users', data.userInfo)
     .then((response) => console.log('response', response))*/
     
@@ -93,7 +108,7 @@ const step1 = [
   { value: 'first_name', label: 'Nome', security: false },
   { value: 'last_name', label: 'Sobrenome', security: false },
   { value: 'username', label: 'Usuário', security: false },
-  { value: 'email', label: 'E-mail', security: false },
+  //{ value: 'email', label: 'E-mail', security: false },
   { value: 'password', label: 'Senha', security: true },
   { value: 'verifyPassword', label: 'Confirmar Senha', security: true },
 ];
@@ -137,10 +152,12 @@ const handleOnSubmit = () => {
 
 }
 const handleTextChange = (newValue, option) => {
+  console.log(`newValue: ${newValue} option: ${option}`)
+  // newValue = JSON.stringify(newValue)
   if (option == 'first_name') forminfo.setFirstName(newValue)
   else if (option == 'last_name') forminfo.setLastName(newValue)
   else if (option == 'username') forminfo.setUsername(newValue)
-  else if (option == 'email') forminfo.setEmail(newValue)
+  // else if (option == 'email') forminfo.setEmail(newValue)
   else if (option == 'password') forminfo.setPassword(newValue)
   else if (option == 'verifyPassword') forminfo.setVerifyPassword(newValue)
   else if (option == 'endereco') forminfo.setStreet(newValue)

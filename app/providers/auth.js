@@ -7,3 +7,7 @@ export async function getToken(payload) {
     AsyncStorage.setItem("authorization", authorization);
     AsyncStorage.setItem("refresh", response.data.refresh);
 }
+
+export async function registerUser(payload) {
+  return await api.registerRequest(payload);
+}

@@ -50,7 +50,7 @@ export default function Login({ navigation }) {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
           <CustomButtom btnName='Facebook'></CustomButtom>
-          <CustomButtom btnName='Criar conta'></CustomButtom>
+          <CustomButtom btnName='Criar conta' action={() => navigation.navigate('Registration')}></CustomButtom>
         </View>
       </View>
     </TouchableWithoutFeedback>
