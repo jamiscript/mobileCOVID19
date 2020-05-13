@@ -16,8 +16,7 @@ export default function Login({ navigation }) {
       });
       navigation.navigate('Home');
     } catch (error) {
-      Alert.alert("Usuário ou senha incorretos!");
-      console.error("erro: ", error);
+      setError('Usuário ou senha incorretos!');
     }
   }
 
@@ -30,6 +29,7 @@ export default function Login({ navigation }) {
             source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
           />
           <View style={styles.inputView}>
+            <Text style={styles.error}>{error}</Text>
             <TextInput
               style={styles.input}
               placeholder="Usuário"
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa', // Branco
     borderRadius: 40,
     alignContent: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     shadowColor: "#000",
     // Android
@@ -102,4 +103,9 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     alignItems: 'center',
   },
+  error: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    paddingBottom: 15
+  }
 });
