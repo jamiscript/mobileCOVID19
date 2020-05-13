@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
         "username": username,
         "password": password
       });
-      console.info("Usuário logado com sucesso!");
+      navigation.navigate('Home');
     } catch (error) {
       Alert.alert("Usuário ou senha incorretos!");
       console.error("erro: ", error);
@@ -25,38 +25,28 @@ export default function Login({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
-          <Image style={styles.logo} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }} />
+          <Image
+            style={styles.logo}
+            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
+          />
           <View style={styles.inputView}>
-
-            <View style={styles.textInputView}>
-              <Image
-                style={styles.textInputLogo}
-                source={{ uri: 'https://cdn4.iconfinder.com/data/icons/basic-user-interface-elements/700/user-account-profile-human-avatar-face-head--512.png' }}
-              />
-              <TextInput
-                placeholder="Usuário"
-                onChangeText={text => setUsername(text)}
-                onChange={() => setError('')}
-                onSubmitEditing={() => { this.passwordInput.focus(); }}
-                blurOnSubmit={false}
-              />
-            </View>
-
-            <View style={styles.textInputView}>
-              <Image
-                style={styles.textInputLogo}
-                source={{ uri: 'https://cdn4.iconfinder.com/data/icons/basic-user-interface-elements/700/key-lock-unlock-clef-512.png' }}
-              />
-              <TextInput
-                placeholder="Senha"
-                onChangeText={text => setPassword(text)}
-                onChange={() => setError('')}
-                secureTextEntry={true}
-              />
-            </View>
-
+            <TextInput
+              style={styles.input}
+              placeholder="Usuário"
+              onChangeText={text => setUsername(text)}
+              onChange={() => setError('')}
+              onSubmitEditing={() => { this.passwordInput.focus(); }}
+              blurOnSubmit={false}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              onChangeText={text => setPassword(text)}
+              onChange={() => setError('')}
+              secureTextEntry={true}
+            />
             <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-            <CustomButtom name="CRIAR CONTA" main={false} action={() => onSubmit()} />
+            <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate('') } />
           </View>
         </View>
       </View>
@@ -89,8 +79,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
   },
-  textInputView: {
-    flexDirection: 'row',
+  input: {
+    minHeight: 40,
     height: 40,
     width: 250,
     marginBottom: 10,
@@ -109,13 +99,6 @@ const styles = StyleSheet.create({
     margin: 5,
     height: 25,
     width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
-  },
-  textInputLogo: {
-    margin: 10,
-    height: 20,
-    width: 20,
     resizeMode: 'stretch',
     alignItems: 'center',
   },
