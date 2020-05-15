@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-    View, 
-    Text, 
+    View,
+    Text,
     TouchableOpacity,
     TextInput,
     StyleSheet,
-    SafeAreaView, 
+    SafeAreaView,
     ScrollView,
     Alert
 } from 'react-native'
@@ -17,8 +17,10 @@ import { registerUser } from '../providers/auth';
 
 
 export default function SignUpScreen() {
-    async function register(userInfo){
-        try{
+    const navigation = useNavigation();
+
+    async function register(userInfo) {
+        try {
             await registerUser({
                 "first_name": userInfo.first_name,
                 "last_name": userInfo.last_name,
@@ -26,10 +28,10 @@ export default function SignUpScreen() {
                 "email": userInfo.email,
                 "password": userInfo.password
             })
-        }
-        catch (err){
+            navigation.navigate("HomeStack");
+        } catch (err) {
             Alert.alert("Erro ao registrar novo usuário")
-            console.log('Error',err)
+            console.log('Error', err)
         }
     }
 
@@ -38,7 +40,6 @@ export default function SignUpScreen() {
         register(values)
     };
 
-    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>

@@ -15,7 +15,7 @@ export default function NavigationBar() {
         />
         <Appbar.Action
           icon={require('../assets/images/iconHome.png')}
-          onPress={() => navigation.navigate("Missions")}
+          onPress={() => navigation.navigate("Home")}
         />
         <Appbar.Action
           icon={require('../assets/images/iconQuiz.png')}

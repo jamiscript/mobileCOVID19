@@ -14,22 +14,9 @@ export default function Login({ navigation }) {
         "username": username,
         "password": password
       });
-      navigation.navigate('Home');
+      navigation.navigate('HomeStack');
     } catch (error) {
       setError('Usuário ou senha incorretos!');
-    }
-  }
-
-  async function onSubmit() {
-    try {
-      await getToken({
-        "username": username,
-        "password": password
-      });
-      console.info("Usuário logado com sucesso!");
-    } catch (error) {
-      Alert.alert("Usuário ou senha incorretos!");
-      console.error("erro: ", error);
     }
   }
 
