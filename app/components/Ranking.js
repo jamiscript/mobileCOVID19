@@ -88,11 +88,13 @@ export default function Ranking() {
 const styles = StyleSheet.create({
   ranking: {
     flex: 3,
-    backgroundColor: '#d3d3d3',
+    backgroundColor: 'whitesmoke',
   },
   card: {
     margin: 10,
-    backgroundColor: '#7e7f80',
+    backgroundColor: 'darkgrey',
+    borderColor: "#6d17b0",
+    borderWidth: 2,
     borderRadius: 15,
   },
   container: {
@@ -102,17 +104,18 @@ const styles = StyleSheet.create({
   placed: {
     paddingHorizontal: 15,
     borderRightWidth: 2,
-    borderRightColor: 'white',
+    borderRightColor: '#6d17b0',
     fontSize: 40,
-    color: 'white',
+    color: 'black',
   },
   points: {
     left: 150,
-    color: 'white',
+    color: 'black',
   },
   name: {
     left: 10,
-    color: 'white',
+    paddingHorizontal: 15,
+    color: 'black',
   },
   avatar: {
     left: 5,

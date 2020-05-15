@@ -45,7 +45,7 @@ export default function NavigationBar() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#474646',
+    backgroundColor: '#6d17b0',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

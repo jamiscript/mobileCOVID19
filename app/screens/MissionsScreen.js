@@ -85,8 +85,8 @@ function HeaderProfile() {
           <Text style={styles.subHeading}>{user.points} pts</Text>
         </View>
       </View>
-      <View style={{ justifyContent: "center" }}>
-        <Icon name='settings' color="gray" reverse onPress={() => console.log('go to edit profile')}></Icon>
+      <View style={{ justifyContent: "center", backgroundColo:"#9967bf"  }}>
+        <Icon name='settings' color="#feee35" onPress={() => console.log('go to edit profile')}></Icon>
       </View>
     </View>
   );
@@ -95,7 +95,7 @@ function HeaderProfile() {
 function Mission({ mission }) {
   return (
     <View style={styles.missionCard}>
-      <Icon name={mission.type} color="white"></Icon>
+      <Icon name={mission.type} color="#feee35"></Icon>
       <Text style={styles.heading}>
         {mission.title}
       </Text>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 9
   },
   header: {
-    backgroundColor: 'dimgray',
+    backgroundColor: '#6d17b0',
     justifyContent: 'space-between',
     flexDirection: 'row',
     padding: 25
@@ -135,9 +135,11 @@ const styles = StyleSheet.create({
   missionCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'gray',
+    backgroundColor: 'darkgrey',
     margin: 10,
     padding: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    borderColor:"#6d17b0",
+    borderWidth: 1
   }
 });

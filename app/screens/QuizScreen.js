@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 4,
     justifyContent: "center",
-    backgroundColor: '#222222',
+    backgroundColor: '#6d17b0',
     color: 'whitesmoke',
   },
   quizText: {

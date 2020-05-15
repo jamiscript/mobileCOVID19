@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#474646',
+    backgroundColor: '#6d17b0', // Roxo forte
     flex: 0.1,
   },
   bottom: {
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: 'space-around',
-    backgroundColor: '#474646',
+    backgroundColor: '#6d17b0',
   },
 });
