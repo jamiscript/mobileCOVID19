@@ -5,7 +5,7 @@ const api = axios.create({
     baseURL: 'https://coronasavior.herokuapp.com/',
 });
 
-export async function registerRequest(data) {
+export async function registerNewUserRequest(data) {
     let res = await api.post(c.USERS, data);
     return res;
 }

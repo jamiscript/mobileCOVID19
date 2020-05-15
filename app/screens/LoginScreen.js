@@ -20,6 +20,19 @@ export default function Login({ navigation }) {
     }
   }
 
+  async function onSubmit() {
+    try {
+      await getToken({
+        "username": username,
+        "password": password
+      });
+      console.info("Usuário logado com sucesso!");
+    } catch (error) {
+      Alert.alert("Usuário ou senha incorretos!");
+      console.error("erro: ", error);
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={{ flex: 1 }}>
@@ -46,11 +59,15 @@ export default function Login({ navigation }) {
               secureTextEntry={true}
             />
             <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-            <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate('') } />
+            <View style={styles.hairline}></View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+              <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
+              <CustomButtom name="Facebook" main={false} action={() => { }} />
+            </View>
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback >
   );
 }
 
@@ -107,5 +124,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     paddingBottom: 15
-  }
+  },
+  hairline: {
+    marginTop: 20,
+    backgroundColor: '#A2A2A2',
+    height: 2,
+    width: 300,
+    marginBottom: 10
+  },
 });
