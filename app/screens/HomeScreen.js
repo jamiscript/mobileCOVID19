@@ -1,26 +1,50 @@
-import React, {useState, useEffect} from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 
-const user = {
-  username: 'MyNameIsUser',
-  points: '500',
-  avatar: './assets/snack-icon.png'
-};
-
 export default function MissionsScreen() {
+
+  const [user, setUser] = useState({})
+  const [messageIndex, setMessageIndex] = useState(0)
+
+  const messages = [
+    "Lave sempre muite bem as mãos.",
+    "Utilize álcool em gel fora de casa.",
+    "Tenha cuidado com os produtos em mercados."
+  ]
+
+  const rotateMessages = function () {
+    if (messageIndex + 1 >= messages.length) {
+      setMessageIndex(0)
+      return
+    }
+    setMessageIndex(messageIndex + 1)
+  }
+
+  const message = messages[messageIndex]
+
+  useEffect(function () {
+
+    //TODO: Lógica de adquirição de dados do usuário
+    let data = {
+      username: 'MyNameIsUser',
+      points: '500',
+      avatar: './assets/snack-icon.png'
+    };
+    setUser(data)
+  }, [])
+
   return (
     <>
       <View style={styles.container}>
-        <HeaderProfile />
-        <View />
+        <HeaderProfile username={user.username} points={user.points} avatar={user.avatar} />
+        <HomeCommon onClick={() => rotateMessages()} message={message} />
       </View>
-      
     </>
   );
 }
 
-function HeaderProfile() {
+function HeaderProfile(props) {
   return (
     <View style={styles.header}>
       <Avatar
@@ -29,16 +53,29 @@ function HeaderProfile() {
         source={require('../assets/images/snack-icon.png')}
       />
       <View style={{ flexDirection: 'column' }}>
-        <Text style={styles.heading}>{user.username}</Text>
+        <Text style={styles.heading}>{props.username}</Text>
         <View style={{ flexDirection: 'row', justifyContent: "center", marginVertical: 10 }}>
-          <Text style={styles.subHeading}>{user.points} pts</Text>
+          <Text style={styles.subHeading}>{props.points} pts</Text>
         </View>
       </View>
-      <View style={{ justifyContent: "center", backgroundColo:"#9967bf"  }}>
+      <View style={{ justifyContent: "center" }}>
         <Icon name='settings' color="#feee35" onPress={() => console.log('go to edit profile')}></Icon>
       </View>
     </View>
   );
+}
+
+function HomeCommon(props) {
+  return (
+    <View style={styles.common}>
+      <View style={styles.messageBox}>
+        <Text style={styles.message}>{props.message}</Text>
+      </View>
+      <View style={styles.buttonBox}>
+        <Icon name="search" size={200} onPress={props.onClick}></Icon>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -50,7 +87,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#6d17b0',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    padding: 25
+    padding: 25,
+    flex: 1
   },
   heading: {
     color: 'white',
@@ -59,14 +97,28 @@ const styles = StyleSheet.create({
   subHeading: {
     fontSize: 20,
   },
-  missionCard: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'darkgrey',
-    margin: 10,
-    padding: 20,
-    borderRadius: 10,
-    borderColor:"#6d17b0",
-    borderWidth: 1
+  common: {
+    flex: 6,
+    justifyContent: "space-between",
+    flexDirection: "column",
+    paddingVertical: 20,
+    paddingHorizontal: 10
+  },
+  messageBox: {
+    flex: 1,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#6d17b0",
+    justifyContent: "center"
+  },
+  message: {
+    textAlignVertical: "",
+    textAlign: "center",
+    color: "#6d17b0",
+    fontSize: 22
+  },
+  buttonBox: {
+    flex: 5,
+    padding: 50
   }
 });
