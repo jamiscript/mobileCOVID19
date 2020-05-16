@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   message: {
-    textAlignVertical: "",
+    //textAlignVertical: "",
     textAlign: "center",
     color: "#6d17b0",
     fontSize: 22

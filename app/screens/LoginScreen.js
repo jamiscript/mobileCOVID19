@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableWithoutFeedback, SafeAreaView, ScrollView, Keyboard, Image, Alert } from 'react-native';
 import CustomButtom from '../components/CustomButton';
 import { getToken } from '../providers/auth';
 
@@ -21,48 +21,53 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
-          />
-          <View style={styles.inputView}>
-            <Text style={styles.error}>{error}</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Usuário"
-              onChangeText={text => setUsername(text)}
-              onChange={() => setError('')}
-              onSubmitEditing={() => { this.passwordInput.focus(); }}
-              blurOnSubmit={false}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Senha"
-              onChangeText={text => setPassword(text)}
-              onChange={() => setError('')}
-              secureTextEntry={true}
-            />
-            <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-            <View style={styles.hairline}></View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-              <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
-              <CustomButtom name="Facebook" main={false} action={() => { }} />
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={{ flex: 1 }}>
+            <View style={styles.container}>
+              <Image
+                style={styles.logo}
+                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
+              />
+              <View style={styles.inputView}>
+                <Text style={styles.error}>{error}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Usuário"
+                  onChangeText={text => setUsername(text)}
+                  onChange={() => setError('')}
+                  onSubmitEditing={() => { this.passwordInput.focus(); }}
+                  blurOnSubmit={false}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Senha"
+                  onChangeText={text => setPassword(text)}
+                  onChange={() => setError('')}
+                  secureTextEntry={true}
+                />
+                <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
+                <View style={styles.hairline}></View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                  <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
+                  <CustomButtom name="Facebook" main={false} action={() => { }} />
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
-    </TouchableWithoutFeedback >
+        </TouchableWithoutFeedback >
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    paddingTop: 30,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#9967bf' // Roxo médio
   },
   inputView: {
