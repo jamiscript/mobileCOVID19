@@ -24,35 +24,33 @@ export default function Login({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View style={{ flex: 1 }}>
-            <View style={styles.container}>
-              <Image
-                style={styles.logo}
-                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
+          <View style={styles.container}>
+            <Image
+              style={styles.logo}
+              source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png' }}
+            />
+            <View style={styles.inputView}>
+              <Text style={styles.error}>{error}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Usuário"
+                onChangeText={text => setUsername(text)}
+                onChange={() => setError('')}
+                onSubmitEditing={() => { this.passwordInput.focus(); }}
+                blurOnSubmit={false}
               />
-              <View style={styles.inputView}>
-                <Text style={styles.error}>{error}</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Usuário"
-                  onChangeText={text => setUsername(text)}
-                  onChange={() => setError('')}
-                  onSubmitEditing={() => { this.passwordInput.focus(); }}
-                  blurOnSubmit={false}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Senha"
-                  onChangeText={text => setPassword(text)}
-                  onChange={() => setError('')}
-                  secureTextEntry={true}
-                />
-                <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-                <View style={styles.hairline}></View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
-                  <CustomButtom name="Facebook" main={false} action={() => { }} />
-                </View>
+              <TextInput
+                style={styles.input}
+                placeholder="Senha"
+                onChangeText={text => setPassword(text)}
+                onChange={() => setError('')}
+                secureTextEntry={true}
+              />
+              <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
+              <View style={styles.hairline}></View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
+                <CustomButtom name="Facebook" main={false} action={() => { }} />
               </View>
             </View>
           </View>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9967bf' // Roxo médio
   },
   inputView: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: '#fafafa', // Branco
     borderRadius: 40,
     alignContent: 'center',
