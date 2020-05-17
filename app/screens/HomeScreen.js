@@ -8,10 +8,6 @@ export default function MissionsScreen({ route, navigation })  {
 
   const [user, setUser] = useState({})
   const [messageIndex, setMessageIndex] = useState(0)
-  const [profile, setProfile] =  useState({})
-  
-var usuario;
-var prof;
 
   const messages = [
     "Lave sempre muite bem as mãos.",
@@ -127,7 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   message: {
-    //textAlignVertical: "",
     textAlign: "center",
     color: "#6d17b0",
     fontSize: 22
