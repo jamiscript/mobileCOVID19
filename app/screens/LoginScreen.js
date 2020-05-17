@@ -14,8 +14,9 @@ export default function Login({ navigation }) {
         "username": username,
         "password": password
       });
-      navigation.navigate('HomeStack');
+      navigation.navigate('HomeStack', {username: username});
     } catch (error) {
+      console.log(error)
       setError('Usuário ou senha incorretos!');
     }
   }
@@ -47,10 +48,8 @@ export default function Login({ navigation }) {
                 secureTextEntry={true}
               />
               <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-              <View style={styles.hairline}></View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                 <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
-                <CustomButtom name="Facebook" main={false} action={() => { }} />
               </View>
             </View>
           </View>
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: "#000",
+    padding: 30,
     // Android
     elevation: 20,
     // iOS

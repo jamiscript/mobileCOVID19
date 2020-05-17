@@ -1,7 +1,7 @@
 import React from 'react';
 
 //API URL
-// export const API_URL = "https://coronasavior.herokuapp.com/";
+ export const API_URL = "https://coronasavior.herokuapp.com";
 
 //Endpoints
 export const USERS = '/users/';
