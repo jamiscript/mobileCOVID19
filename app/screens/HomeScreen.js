@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text,Alert } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
+import { getProfile } from '../services/api';
+import { getUserInformation } from '../services/api';
 
-export default function MissionsScreen() {
+export default function MissionsScreen({ route, navigation })  {
 
   const [user, setUser] = useState({})
   const [messageIndex, setMessageIndex] = useState(0)
@@ -21,19 +23,28 @@ export default function MissionsScreen() {
     setMessageIndex(messageIndex + 1)
   }
 
+  async function findProfileInformation() {
+    try {
+      let params = {
+        points : await getProfile(),
+        username : await getUserInformation(),
+        avatar: './assets/snack-icon.png'
+      }
+
+     setUser(params);
+
+
+    } catch (err) {
+        Alert.alert("Erro ao buscar profile")
+        console.log('Error', err)
+    }
+}
+
+
   const message = messages[messageIndex]
 
-  useEffect(function () {
-
-    //TODO: Lógica de adquirição de dados do usuário
-    let data = {
-      username: 'MyNameIsUser',
-      points: '500',
-      avatar: './assets/snack-icon.png'
-    };
-    setUser(data)
-  }, [])
-
+  findProfileInformation()
+  
   return (
     <>
       <View style={styles.container}>
@@ -112,7 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   message: {
-    //textAlignVertical: "",
     textAlign: "center",
     color: "#6d17b0",
     fontSize: 22

@@ -6,8 +6,10 @@ export async function getToken(payload) {
     let authorization = `Bearer ${response.data.access}`;
     AsyncStorage.setItem("authorization", authorization);
     AsyncStorage.setItem("refresh", response.data.refresh);
+    
 }
 
 export async function registerUser(payload){
     return await api.registerNewUserRequest(payload)
 }
+

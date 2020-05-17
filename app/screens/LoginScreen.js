@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
         "username": username,
         "password": password
       });
-      navigation.navigate('HomeStack');
+      navigation.navigate('HomeStack', { username: username });
     } catch (error) {
       setError('Usuário ou senha incorretos!');
     }
@@ -22,7 +22,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
             <Image
@@ -47,14 +47,12 @@ export default function Login({ navigation }) {
                 secureTextEntry={true}
               />
               <CustomButtom name="LOGIN" main={true} action={() => onSubmit()} />
-              <View style={styles.hairline}></View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                 <CustomButtom name="CRIAR CONTA" main={false} action={() => navigation.navigate("SignUp")} />
-                <CustomButtom name="Facebook" main={false} action={() => { }} />
               </View>
             </View>
           </View>
-        </TouchableWithoutFeedback >
+        </TouchableWithoutFeedback>
       </ScrollView>
     </SafeAreaView>
   );
@@ -76,6 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: "#000",
+    padding: 30,
     // Android
     elevation: 20,
     // iOS
@@ -102,24 +101,9 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     alignSelf: 'center'
   },
-  inputLogo: {
-    //padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
-  },
   error: {
     fontSize: 15,
     fontWeight: 'bold',
     paddingBottom: 15
-  },
-  hairline: {
-    marginTop: 20,
-    backgroundColor: '#A2A2A2',
-    height: 2,
-    width: 300,
-    marginBottom: 10
   },
 });

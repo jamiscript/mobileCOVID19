@@ -1,8 +1,10 @@
 import axios from 'axios';
 import * as c from './constants'; 
+import { AsyncStorage } from 'react-native';
 
 const api = axios.create({
     baseURL: 'https://coronasavior.herokuapp.com/',
+    
 });
 
 export async function registerNewUserRequest(data) {
@@ -14,5 +16,59 @@ export async function loginRequest(data) {
     let res = await api.post(c.LOGIN, data);
     return res;
 }
+
+export async function getProfile() {
+
+    var aut = await getToken();
+    var resp = null;
+    
+    return fetch(c.API_URL+c.PROFILE, {
+    method: 'Get',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': aut
+    },
+    }).then((response) => response.json())
+    .then((json) => {
+      return json.count;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+}
+
+export async function getUserInformation() {
+
+    var aut = await getToken();
+   return  fetch(c.API_URL+c.USERS, {
+    method: 'Get',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': aut
+    },
+    }).then((response) => response.json())
+    .then((json) => {
+      return json.results[0].first_name;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+async function getToken() {
+    try {
+      const value = await AsyncStorage.getItem('authorization');
+      if (value !== null) {
+          return value;
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log("Erro get token: " + error);
+    }
+  };
+
 
 export default api
