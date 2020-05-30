@@ -45,7 +45,7 @@ export default function ScreenRanking() {
             <View style={styles.container}>
                 <FlatList
                     data={sortedUsers}
-                    renderItem={({ item }) => <ListTile username={item.username} points={item.points} position={users.indexOf(item) + 1}/>}
+                    renderItem={({ item }) => <ListTile username={item.username} points={item.points} position={sortedUsers.indexOf(item) + 1}/>}
                     keyExtractor={item => item.id}
                 />
             </View>
