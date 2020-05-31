@@ -1,51 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { getRanking } from '../services/api';
+import { getUserInformation } from '../services/api';
 
 export default function ScreenRanking() {
-    // mock data remove later
-    const users = [
-        {
-            id: '01',
-            username: 'Ana',
-            points: '3000',
-        },
-        {
-            id: '02',
-            username: 'Joao',
-            points: '6000',
-        },
-        {
-            id: '03',
-            username: 'Carlos',
-            points: '200',
-        },
-        {
-            id: '04',
-            username: 'Paulo',
-            points: '100',
-        },
-    ]
 
-    const myUser = {
+    const [users, setUser] = useState([])
+    const [username, setUserame] = useState("")
+    const [myUser, setMyUser] = useState([])
 
-        id: '01',
-        username: 'Ana',
-        points: '3000',
-        position: '2' // find a way to discover this
+   
 
+    console.log("Tamanho: "+ users.length);
+    if(users.length === 0)
+        updateRanking();
+
+    async function updateRanking() {
+        try {
+            setUserame((await getUserInformation()).username);
+            let ranking = await getRanking();
+            var result = [];
+
+            for(var i in ranking){
+
+                if( (ranking [i]).user === username){
+                    let Myinfo = {
+                        name : username,
+                        points : (ranking [i]).points,
+                        position : parseInt(i)+1
+                    }
+                    setMyUser(Myinfo);
+
+                }
+
+                let params = {
+                    id: i,
+                    name: (ranking [i]).user,
+                    points: (ranking [i]).points,
+                  }
+                result.push(params);
+            }
+
+            setUser(result);
+           
+            
+        } catch (err) {
+
+            Alert.alert("Erro ao buscar ranking")
+            console.log('Error', err)
+
+        }
     }
-
-    // sorts users' list by points
-    const sortedUsers = sortList(users)
+   
 
     return (
         <>
             <Header user={myUser}></Header>
             <View style={styles.container}>
                 <FlatList
-                    data={sortedUsers}
-                    renderItem={({ item }) => <ListTile username={item.username} points={item.points} position={sortedUsers.indexOf(item) + 1}/>}
+                    data={users}
+                    renderItem={({ item }) => <ListTile name={item.name} points={item.points} position={users.indexOf(item) + 1}/>}
                     keyExtractor={item => item.id}
                 />
             </View>
@@ -69,7 +84,7 @@ function Header({ user }) {
                     source={require('../assets/images/snack-icon.png')}
                 />
                 <View style={{ flexDirection: 'row', justifyContent: "center", marginVertical: 10 }}>
-                    <Text style={styles.heading}>{user.username}</Text>
+                    <Text style={styles.heading}>{user.name}</Text>
                 </View>
 
             </View>
@@ -85,11 +100,11 @@ function Header({ user }) {
     )
 }
 
-function ListTile({ username, points, position }) {
+function ListTile({ name, points, position }) {
     return (
         <View style={styles.tile}>
             <Avatar rounded titleStyle={{ color: 'black' }} title={`${position}`} overlayContainerStyle={{ backgroundColor: 'yellow' }} />
-            <Text style={styles.subHeadingBlack}>{username}</Text>
+            <Text style={styles.subHeadingBlack}>{name}</Text>
             <Text style={styles.subHeadingBlack}>{points}</Text>
         </View>
     );

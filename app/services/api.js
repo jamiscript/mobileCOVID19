@@ -17,6 +17,31 @@ export async function loginRequest(data) {
     return res;
 }
 
+export async function createProfile(data){
+
+  var aut = await getToken();
+  
+  return fetch(c.API_URL+c.PROFILE, {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': aut
+  },
+  body : JSON.stringify(data),
+  }).then((response) => response.json())
+  .then((json) => {
+    console.log(json);
+    return json;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+}
+
+
+//get user points
 export async function getProfile() {
 
     var aut = await getToken();
@@ -31,7 +56,8 @@ export async function getProfile() {
     },
     }).then((response) => response.json())
     .then((json) => {
-      return json.count;
+      console.log(json);
+      return json.results[0].points;
     })
     .catch((error) => {
       console.error(error);
@@ -39,6 +65,7 @@ export async function getProfile() {
 
 }
 
+//get user information
 export async function getUserInformation() {
 
     var aut = await getToken();
@@ -51,11 +78,32 @@ export async function getUserInformation() {
     },
     }).then((response) => response.json())
     .then((json) => {
-      return json.results[0].first_name;
+      console.log(json);
+      return json.results[0];
     })
     .catch((error) => {
       console.error(error);
     });
+}
+
+//get ranking
+export async function getRanking() {
+
+  var aut = await getToken();
+ return  fetch(c.API_URL+c.RANKING, {
+  method: 'Get',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': aut
+  },
+  }).then((response) => response.json())
+  .then((json) => {
+    return json.results;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
 async function getToken() {
@@ -68,7 +116,7 @@ async function getToken() {
       // Error retrieving data
       console.log("Erro get token: " + error);
     }
-  };
+};
 
 
 export default api
