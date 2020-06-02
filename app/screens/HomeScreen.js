@@ -58,8 +58,11 @@ export default function MissionsScreen({ route, navigation })  {
 }
 
   const message = messages[messageIndex]
-  if(Object.keys(user).length === 0)
+  
+  useEffect(function(){
     findProfileInformation()
+  }, [])
+    
   
   return (
     <>

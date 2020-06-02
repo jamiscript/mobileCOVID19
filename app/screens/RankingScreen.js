@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { getRanking } from '../services/api';
@@ -12,9 +12,11 @@ export default function ScreenRanking() {
 
    
 
-    console.log("Tamanho: "+ users.length);
-    if(users.length === 0)
+    useEffect(function(){
         updateRanking();
+    }, [])
+
+        
 
     async function updateRanking() {
         try {

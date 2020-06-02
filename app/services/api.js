@@ -11,7 +11,6 @@ export async function registerNewUserRequest(data) {
     let res = await api.post(c.USERS, data);
     return res;
 }
-
 export async function loginRequest(data) {
     let res = await api.post(c.LOGIN, data);
     return res;
@@ -31,7 +30,6 @@ export async function createProfile(data){
   body : JSON.stringify(data),
   }).then((response) => response.json())
   .then((json) => {
-    console.log(json);
     return json;
   })
   .catch((error) => {
@@ -56,7 +54,6 @@ export async function getProfile() {
     },
     }).then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json.results[0].points;
     })
     .catch((error) => {
@@ -78,7 +75,6 @@ export async function getUserInformation() {
     },
     }).then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json.results[0];
     })
     .catch((error) => {
