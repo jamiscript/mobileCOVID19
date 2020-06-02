@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     View,
     Text,
@@ -8,13 +8,12 @@ import {
     SafeAreaView,
     ScrollView,
     Alert
-} from 'react-native'
+} from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 import { registerUser } from '../providers/auth';
-
 
 export default function SignUpScreen() {
     const navigation = useNavigation();
@@ -27,17 +26,15 @@ export default function SignUpScreen() {
                 "username": userInfo.username,
                 "email": userInfo.email,
                 "password": userInfo.password
-            })
-            navigation.navigate("HomeStack");
+            });
+            navigation.navigate("Login");
         } catch (err) {
-            Alert.alert("Erro ao registrar novo usuário")
-            console.log('Error', err)
+            Alert.alert("Erro ao registrar novo usuário");
         }
     }
 
-    const handleSubmit = (values, navigation) => {
-        console.log('values to the request', values);
-        register(values)
+    const handleSubmit = (values) => {
+        register(values);
     };
 
     return (
@@ -142,14 +139,13 @@ export default function SignUpScreen() {
                                         <Text style={styles.buttonText}>CRIAR</Text>
                                     </TouchableOpacity>
                                 </View>
-
                             </View>
                         )}
                     </Formik>
                 </View>
             </ScrollView>
         </SafeAreaView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -192,6 +188,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black'
     },
-})
-
-
+});
