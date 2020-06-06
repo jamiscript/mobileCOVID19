@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
         height: vh(80),
         width: vw(90),
         zIndex: 1500,
-        textAlign: "justify",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#777777",
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
         flex: 2,
         justifyContent: "center",
         backgroundColor: '#6d17b0',
-        color: 'whitesmoke',
     },
     quizText: {
         padding: 10,
