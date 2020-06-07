@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { vh, vw } from "react-native-expo-viewport-units"
 
 export default function Quiz({ navigation }) {
 
     function CustomCard(props) {
-
         return (
             <View style={styles.card}>
                 <Button title={props.title} color={props.color} onPress={props.onPress}></Button>
@@ -22,8 +20,8 @@ export default function Quiz({ navigation }) {
                 </Text>
             </View>
             <View style={styles.container}>
-                <CustomCard title="Repetir" color="#6d17b0" onPress={() => { navigation.navigate("Game") }} />
-                <CustomCard title="Continuar" color="#777777" onPress={() => { navigation.navigate("Start")}} />
+                <CustomCard title="Repetir" color="#6d17b0" onPress={() => { navigation.replace("Game") }} />
+                <CustomCard title="Continuar" color="#777777" onPress={() => { navigation.replace("Start")}} />
             </View>
 
         </>

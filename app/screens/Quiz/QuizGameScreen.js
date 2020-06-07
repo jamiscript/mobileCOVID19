@@ -1,18 +1,54 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, TouchableHighlight } from 'react-native';
+import { getQuestions, answerQuestion } from '../../services/api';
 
-export default function Quiz (props) {
+export default function Quiz({ navigation }) {
 
-  function PopUp (props) {
-    return(
+  const [popUp, setPopUp] = useState(false);
+
+  const [questions, setQuestions] = useState([])
+  const [questionIndex, setQuestionIndex] = useState(0)
+
+  useEffect(function () {
+    (async function () {
+      let response = await getQuestions()
+      setQuestions(response)
+    })()
+
+  }, [])
+
+  const actualQuestion = questions[questionIndex]
+
+  function nextQuestion() {
+    if (questionIndex + 1 < questions.length)
+      setQuestionIndex(questionIndex + 1)
+    else
+      navigation.navigate('End')
+  }
+
+  function showPopUp() {
+    setPopUp(true);
+  }
+
+  function closePopUp() {
+    setPopUp(false);
+  }
+
+  function buttonClick(answer) {
+    showPopUp()
+    answerQuestion(actualQuestion, answer).then(() => {
+      nextQuestion()
+      closePopUp()
+    })
+  }
+
+  function PopUp(props) {
+    return (
       <View style={styles.popup}>
         <Text style={styles.popupText}>
-          {props.acerto ? "Parabéns!! Você acertou!!": "Ops... Resposta errada..."}
+          Carregando, aguarde ... 
         </Text>
-        <View style={styles.popupButtonBox}>
-          <Button color={props.acerto ? "green" : "red"} title="Continuar" onPress={() => closePopUp()}></Button>
-        </View>
       </View>
     )
   }
@@ -21,8 +57,7 @@ export default function Quiz (props) {
     return (
       <View style={styles.header}>
         <Text style={styles.quizText}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          gravida porta euismod. Suspendisse malesuada, tortor eu aliquam?
+          {actualQuestion && actualQuestion.title}
         </Text>
       </View>
     );
@@ -30,89 +65,56 @@ export default function Quiz (props) {
 
   function CustomCard(props) {
 
-    const handleClick = (card) => {
-      console.log(`${card} Card clicked! It's ${(props.value)}`)
-      showPopUp(props.value)
-    }
-
     return (
-      <TouchableHighlight style={styles.card} onPress={() => handleClick(props.title)}>
+      <TouchableHighlight style={styles.card} onPress={() => buttonClick(props.answer)}>
         <View>
-          <View style={styles.titleBox}>
-            <Text style={[styles.title, {color: props.color}]}>{props.title}</Text>
-          </View>
           <View style={styles.textBox}>
-            <Text style={styles.text}>{props.text}</Text>
+            <Text style={styles.text}>{props.answer.description}</Text>
           </View>
         </View>
       </TouchableHighlight>
     );
   }
 
-  const [popUp, setPopUp] = useState(false); 
-  const [resposta, setResposta] = useState(false); 
-
-  const showPopUp = (answer) => {
-    setResposta(answer);
-    setPopUp(true);
-  }
-
-  const closePopUp = () =>{
-    setPopUp(false);
-  }
-
   return (
     <>
-      { popUp &&
-          <PopUp acerto={resposta}/>
+      {popUp &&
+        <PopUp />
       }
       <Header />
       <View style={styles.container}>
-        <CustomCard
-          title="A" color="green"
-          text="Duis porttitor pharetra ipsum quis luctus. "
-          value={false}
-        />
-        <CustomCard
-          title="B" color="#ff0066"
-          text="Suspendisse commodo pharetra metus, eget ultrices velit egestas et."
-          value={true}
-        />
-        <CustomCard
-          title="C" color="darkcyan"
-          text="Donec interdum nulla sit amet placerat volutpat."
-          value={false}
-        />
-        <CustomCard
-          title="D" color="yellow"
-          text="Pellentesque sagittis vulputate lacus, id laoreet libero consequat eu."
-          value={false}
-        />
+        {
+          actualQuestion &&
+          actualQuestion.answers.map((answer, index) => (
+            <CustomCard
+              key={index}
+              answer={answer}
+            />
+          ))
+        }
       </View>
-      
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  popup:{
+  popup: {
     position: "absolute",
     top: 0,
     height: "100%",
     width: "100%",
     zIndex: 500,
-    textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "grey",
     opacity: 0.8
   },
-  popupText:{
-    color : "white",
+  popupText: {
+    color: "white",
     fontSize: 18,
     fontWeight: "bold"
   },
-  popupButtonBox:{
+  popupButtonBox: {
     width: "50%"
   },
   container: {
@@ -126,13 +128,13 @@ const styles = StyleSheet.create({
     flex: 4,
     justifyContent: "center",
     backgroundColor: '#6d17b0',
-    color: 'whitesmoke',
   },
   quizText: {
     padding: 10,
     color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
+    textAlign: "center"
   },
   card: {
     backgroundColor: "darkgrey",

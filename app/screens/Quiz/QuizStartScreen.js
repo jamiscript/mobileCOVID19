@@ -41,7 +41,7 @@ export default function Quiz({ navigation }) {
                 </Text>
             </View>
             <View style={styles.container}>
-                <CustomCard title="Jogar" color="#6d17b0" onPress={() => { navigation.navigate("Game") }} />
+                <CustomCard title="Jogar" color="#6d17b0" onPress={() => { navigation.replace("Game") }} />
                 <CustomCard title="Sobre" color="#777777" onPress={() => { setPopUp(true) }} />
             </View>
 
