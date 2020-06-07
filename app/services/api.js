@@ -1,35 +1,35 @@
 import axios from 'axios';
-import * as c from './constants'; 
+import * as c from './constants';
 import { AsyncStorage } from 'react-native';
 
 const api = axios.create({
-    baseURL: 'https://coronasavior.herokuapp.com/',
-    
+  baseURL: 'https://coronasavior.herokuapp.com/',
+
 });
 
 export async function registerNewUserRequest(data) {
-    let res = await api.post(c.USERS, data);
-    return res;
+  let res = await api.post(c.USERS, data);
+  return res;
 }
 
 export async function loginRequest(data) {
-    let res = await api.post(c.LOGIN, data);
-    return res;
+  let res = await api.post(c.LOGIN, data);
+  return res;
 }
 
 export async function getProfile() {
 
-    var aut = await getToken();
-    var resp = null;
-    
-    return fetch(c.API_URL+c.PROFILE, {
+  var aut = await getToken();
+  var resp = null;
+
+  return fetch(c.API_URL + c.PROFILE, {
     method: 'Get',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': aut
     },
-    }).then((response) => response.json())
+  }).then((response) => response.json())
     .then((json) => {
       return json.count;
     })
@@ -41,15 +41,15 @@ export async function getProfile() {
 
 export async function getUserInformation() {
 
-    var aut = await getToken();
-   return  fetch(c.API_URL+c.USERS, {
+  var aut = await getToken();
+  return fetch(c.API_URL + c.USERS, {
     method: 'Get',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': aut
     },
-    }).then((response) => response.json())
+  }).then((response) => response.json())
     .then((json) => {
       return json.results[0].first_name;
     })
@@ -59,16 +59,42 @@ export async function getUserInformation() {
 }
 
 async function getToken() {
-    try {
-      const value = await AsyncStorage.getItem('authorization');
-      if (value !== null) {
-          return value;
-      }
-    } catch (error) {
-      // Error retrieving data
-      console.log("Erro get token: " + error);
+  try {
+    const value = await AsyncStorage.getItem('authorization');
+    if (value !== null) {
+      return value;
     }
-  };
+  } catch (error) {
+    // Error retrieving data
+    console.log("Erro get token: " + error);
+  }
+};
 
+export async function getQuestions(tam = 5) {
+  let list = []
+  let next = null
+  do {
+    let result = await axios.get(next ? next : c.API_URL + c.QUESTION).then(function (res) {
+      res.results.forEach(question => {
+        if (!question.is_answered && list.length < tam)
+          list.push(question)
+      });
+      next = res.next
+    })
+
+  } while (list.length < 5 && next !== null)
+
+  return list
+}
+
+export async function answerQuestion(question, answer) {
+  let data = {
+    question: question.url,
+    answers: [
+      { id: answer.id }
+    ]
+  }
+  return axios.post(c.API_URL + c.ANSWER, data)
+}
 
 export default api
