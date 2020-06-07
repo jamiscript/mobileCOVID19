@@ -3,6 +3,7 @@ import { View, StyleSheet, Text,Alert } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { getProfile } from '../services/api';
 import { getUserInformation } from '../services/api';
+import { createProfile } from '../services/api';
 
 export default function MissionsScreen({ route, navigation })  {
 
@@ -27,11 +28,27 @@ export default function MissionsScreen({ route, navigation })  {
     try {
       let params = {
         points : await getProfile(),
-        username : await getUserInformation(),
+        username : (await getUserInformation()).first_name,
         avatar: './assets/snack-icon.png'
       }
 
+    // if(params.points ===0)
+    // {
+    //   try {
+    //     await createProfile({
+    //         "address": 'address',
+    //         'coordinate_x': '54544654',
+    //         'coordinate_y': '45454545'
+    //     })
+    //   } catch (err) {
+    //       Alert.alert("Erro ao registrar novo profile")
+    //       console.log('Error', err)
+    //   }
+    //     createProfile
+    // }
+    // else
      setUser(params);
+
 
 
     } catch (err) {
@@ -40,10 +57,12 @@ export default function MissionsScreen({ route, navigation })  {
     }
 }
 
-
   const message = messages[messageIndex]
-
-  findProfileInformation()
+  
+  useEffect(function(){
+    findProfileInformation()
+  }, [])
+    
   
   return (
     <>
