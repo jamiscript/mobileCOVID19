@@ -9,3 +9,4 @@ export const PROFILE = '/profiles/';
 export const LOGIN = '/api/token/';
 export const QUESTION = '/questions/'
 export const ANSWER = '/answerquestions/'
+export const RANKING = '/ranking/';
