@@ -7,5 +7,5 @@ import React from 'react';
 export const USERS = '/users/';
 export const PROFILE = '/profiles/';
 export const LOGIN = '/api/token/';
-export const QUESTION = '/question/'
+export const QUESTION = '/questions/'
 export const ANSWER = '/answerquestions/'

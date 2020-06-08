@@ -72,19 +72,28 @@ async function getToken() {
 
 export async function getQuestions(tam = 5) {
   let list = []
-  let next = null
-  do {
-    let result = await axios.get(next ? next : c.API_URL + c.QUESTION).then(function (res) {
-      res.results.forEach(question => {
+
+  var aut = await getToken();
+  return fetch(c.API_URL + c.QUESTION, {
+    method: 'Get',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': aut
+    },
+  }).then((response) => response.json())
+    .then((json) => {
+      json.results.forEach(question => {
         if (!question.is_answered && list.length < tam)
           list.push(question)
       });
-      next = res.next
     })
-
-  } while (list.length < 5 && next !== null)
-
-  return list
+    .then(() => {
+      return list
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export async function answerQuestion(question, answer) {
@@ -94,7 +103,12 @@ export async function answerQuestion(question, answer) {
       { id: answer.id }
     ]
   }
-  return axios.post(c.API_URL + c.ANSWER, data)
+  var aut = await getToken();
+  return axios.post(c.API_URL + c.ANSWER, data, {
+    headers: {
+      'Authorization': `${aut}`
+    }
+  })
 }
 
 export default api
